@@ -1,6 +1,7 @@
 from tkinter import *
 from addProjects import *
 from addIssues import *
+from postSolution import *
 from tkinter import ttk
 
 root = Tk()
@@ -42,14 +43,18 @@ button_add_issue.pack(side=LEFT, padx=20)
 button_view_issues = Button(button_frame, text="View issues", font="Helvetica 16 italic")
 button_view_issues.pack(side=LEFT, padx=20)
 
-button_post_solution = Button(button_frame, text="Solution", font="Helvetica 16 italic")
+button_post_solution = Button(button_frame, text="Solution", font="Helvetica 16 italic",
+                              command=lambda :post_solution_button(post_solution_frame))
 button_post_solution.pack(side=LEFT, padx=20)
 
 
 add_project_frame = Frame(second_frame, width=400, height=800)
 add_new_issues_frame = Frame(second_frame, width=400, height=800)
+view_issues_frame = Frame(second_frame, width=400, height=800)
+post_solution_frame = Frame(second_frame, width=400, height=800)
 
-frames = [add_project_frame, add_new_issues_frame]
+
+frames = [add_project_frame, add_new_issues_frame, view_issues_frame, post_solution_frame]
 
 for frame in frames:
     frame.grid(row=2, column=0, padx=10, pady=10)
@@ -57,5 +62,6 @@ for frame in frames:
 
 add_new_projects(add_project_frame)
 add_new_issues(add_new_issues_frame)
+post_solution(post_solution_frame)
 
 root.mainloop()

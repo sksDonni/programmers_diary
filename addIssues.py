@@ -1,8 +1,26 @@
 from tkinter import *
 from tkinter import ttk
+from sqlite3 import *
+
+def get_issues():
+    conn = connect("projects.db")
+    cursor = conn.cursor()
+    query = """SELECT * FROM project_names"""
+    cursor.execute(query)
+    records = cursor.fetchall()
+    print(records)
+    cursor.close()
+    conn.close()
+    return records
+
 
 def add_new_issues(text_frame):
-    options = ["Sensei", "programmer's diary"]
+    options_from_database = get_issues()
+    options = []
+    for option_from_database in options_from_database:
+        a = option_from_database[1]
+        options.append(a)
+
     project_name_label = Label(text_frame, text="Choose your project here", font="Helvetica 16 italic")
     project_name_label.pack(pady=10)
 
