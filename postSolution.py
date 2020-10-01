@@ -1,5 +1,25 @@
 from tkinter import *
 from tkinter import ttk
+from sqlite3 import *
+
+
+def get_projects_from_database():
+    conn = connect("projects.db")
+    cursor = conn.cursor()
+    query = """SELECT * FROM project_name_tables"""
+    cursor.execute(query)
+    records = cursor.fetchall()
+    print(records)
+    cursor.close()
+    conn.close()
+    return records
+
+
+def get_issues_from_database(project_name):
+    conn = connect("projects.db")
+    cursor = conn.cursor()
+    query = """SELECT * FROM issues_in_projects WHERE project_name """
+
 
 def post_solution(text_frame):
 
@@ -30,7 +50,8 @@ def post_solution(text_frame):
     solution_text = Text(text_frame, font="Helvetica 16 italic", width=60, height=10)
     solution_text.pack(pady=10)
 
-    button_post_solution = Button(text_frame, text="POST SOLUTION!!\nGOOD GOING", font="Helvetica 16 italic", bg="white")
+    button_post_solution = Button(text_frame, text="POST SOLUTION!!\nGOOD GOING", font="Helvetica 16 italic", bg="white"
+                                  , command=lambda: post_solution_to_database())
     button_post_solution.pack()
 
 
